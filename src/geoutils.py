@@ -1,3 +1,4 @@
+import geopandas as gpd
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -62,10 +63,17 @@ def get_dataframe_from_data(data_path=data_path):
     return df
 
 
+def get_geojson_shape(geojson_path):
+    g = gpd.read_file(geojson_path)
+
+    return g.shape
+
+
 if __name__ == "__main__":
 
     d = read_all_data(data_path=data_path)
     df = dict_to_dataframe(d)
+    df["geoshape"] = df["geojson"].map(lambda x: get_geojson_shape(x))
     print(df.head())
     print(df["3band"][7])
     print(df["8band"][7])
