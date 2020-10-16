@@ -76,4 +76,6 @@ RUN source activate solaris && python -m ipykernel.kernelspec \
 # open ports for jupyterlab and tensorboard
 EXPOSE 8888/tcp 6006/tcp
 
+WORKDIR /home/solaris
+
 RUN ["/bin/bash"]
