@@ -5,9 +5,7 @@ from pathlib import Path
 import re
 import pickle5 as pickle
 
-data_path = Path(
-    "/home/ahm/Datascience/Satellite Imagery Detection/getting_started_with_spacenet/processedBuildingLabels/data"
-)
+data_path = Path("./processedBuildingLabels/data/rasters_vectors")
 
 
 def get_dirs(data_path=data_path):
@@ -43,10 +41,17 @@ def extract_image_number(string):
 
     return image_number
 
+def extract_file_extension(string):
+    pattern = r"\.(\w+)"
+    file_extension = re.findall(pattern=pattern, string=str(string))[0]
+
+    return file_extension
 
 def dict_to_dataframe(d):
     col = list(d.keys())[0]
-    df = pd.DataFrame(d)
+    df = pd.DataFrame.from_dict(d, orient="index")
+    df = df.transpose()
+    df.dropna(inplace=True)
     df["image_number"] = df[col].map(lambda x: extract_image_number(x))
 
     df["image_number"] = df["image_number"].astype(int)
@@ -62,7 +67,6 @@ def get_dataframe_from_data(data_path=data_path):
     df = dict_to_dataframe(d)
 
     return df
-
 
 def get_geojson_shape(geojson_path):
     g = gpd.read_file(geojson_path)
@@ -80,10 +84,4 @@ def read_pickle(path):
 if __name__ == "__main__":
 
     d = read_all_data(data_path=data_path)
-    df = dict_to_dataframe(d)
-    df["geoshape"] = df["geojson"].map(lambda x: get_geojson_shape(x))
-    print(df.head())
-    print(df["3band"][7])
-    print(df["8band"][7])
-    print(df["geojson"][7])
-    print("complete")
+
