@@ -68,7 +68,8 @@ RUN conda install -n solaris \
     folium \
     jupyter \
     jupyterlab \
-    ipykernel
+    ipykernel \
+    pickle5
 
 # add a jupyter kernel for the conda environment in case it's wanted
 RUN source activate solaris && python -m ipykernel.kernelspec \
