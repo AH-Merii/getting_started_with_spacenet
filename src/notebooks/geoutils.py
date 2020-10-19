@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 import re
+import pickle5 as pickle
 
 data_path = Path(
     "/home/ahm/Datascience/Satellite Imagery Detection/getting_started_with_spacenet/processedBuildingLabels/data"
@@ -67,6 +68,13 @@ def get_geojson_shape(geojson_path):
     g = gpd.read_file(geojson_path)
 
     return g.shape
+
+
+def read_pickle(path):
+    with open(path, "rb") as f:
+        df = pickle.load(f)
+
+    return df
 
 
 if __name__ == "__main__":
