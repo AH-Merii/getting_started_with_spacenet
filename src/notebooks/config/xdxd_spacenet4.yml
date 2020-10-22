@@ -1,3 +1,4 @@
+
 model_name: xdxd_spacenet4
 
 model_path:
@@ -11,7 +12,6 @@ batch_size: 12
 data_specs:
   width: 512
   height:  512
-  dtype:
   image_type: zscore
   rescale: false
   rescale_minima: auto
@@ -25,13 +25,10 @@ data_specs:
 
 training_data_csv: '/path/to/training_df.csv'
 validation_data_csv:
-inference_data_csv: '/path/to/test_df.csv'
+inference_data_csv: 'data/workshop_configs/mvoi_inf.csv'
 
 training_augmentation:
   augmentations:
-    DropChannel:
-      idx: 3
-      axis: 2
     HorizontalFlip:
       p: 0.5
     RandomRotate90:
@@ -55,9 +52,6 @@ training_augmentation:
   shuffle: true
 validation_augmentation:
   augmentations:
-    DropChannel:
-      idx: 3
-      axis: 2
     CenterCrop:
       height: 512
       width: 512
@@ -76,10 +70,6 @@ validation_augmentation:
   p: 1.0
 inference_augmentation:
   augmentations:
-    DropChannel:
-      idx: 3
-      axis: 2
-      p: 1.0
     Normalize:
       mean:
         - 0.006479
@@ -118,4 +108,4 @@ training:
 inference:
   window_step_size_x:
   window_step_size_y:
-  output_dir: 'inference_out/'
+  output_dir: 'xdxd_inference_out/'
