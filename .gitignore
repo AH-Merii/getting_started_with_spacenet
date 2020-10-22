@@ -1,5 +1,8 @@
 # Folder Containing Satellite Imagery and Labels
 processedBuildingLabels/
+inference_in/
+*inference_out/
+raw_data/
 
 ## The .gitignore file specifies things that git should ignore. 
 ## This default template includes entries for R, Python and visual studio
